@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="canonical" href="/charts/">
+
+    <title>Chart</title>
+
+</head>
+<body>
+    <h1 style="color: #014c56;font-family: Century Gothic">Generate Your Time Series Chart</h1>
+
+    <form action= "{{ url_for('test')}}" method="post">
+        Enter stock symbol...<br>
+        <input type = "text" id = "myTicker" name = "myTicker" placeholder="Enter stock symbol: " style="font-family: Arial;background-color: #e4d3ff">
+        <br><br>
+        <input type="submit" id = "submit_btn" style="background-color: #FFFFFF;"
+            onmouseover= "this.style.background = '#AAAAAA'"
+            onmouseout= "this.style.background = '#ffffff'">
+    </form>
+
+    <br>
+
+    <div id='chart' class='chart'”></div>
+
+    <br>
+
+    <br>
+
+
+    <script src='https://cdn.plot.ly/plotly-latest.min.js'></script>
+    <script type='text/javascript'>
+        var graphs = {{graphJSON | safe}};
+        Plotly.plot('chart',graphs,{});
+    </script>
+
+    <br>
+
+</body>
+</html>
