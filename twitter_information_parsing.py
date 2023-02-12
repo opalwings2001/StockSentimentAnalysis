@@ -9,7 +9,7 @@ def get_stock_df(symbol, output_size):
     symbol = symbol.upper()
     output_size = output_size.lower()
 
-    api_key = 'FI8KQOBSEG39RVXM'
+    api_key = 'AHOJ4KYYY0BNKZU1'
     base_url = 'https://www.alphavantage.co/query?'
     function = 'TIME_SERIES_DAILY_ADJUSTED'
 

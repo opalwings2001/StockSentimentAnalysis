@@ -18,29 +18,29 @@ app = Flask(__name__, template_folder='templates', static_folder="static")
 
 @app.route('/', methods=['GET', 'POST'])
 def test():
-    if os.path.exists('./static/images/pieChart.png') or os.path.exists('./static/images/wordCloud.png'):
+    if os.path.exists('./static/images/pieChart.png'):
         os.remove('./static/images/pieChart.png')
+
+    if os.path.exists('./static/images/wordCloud.png'):
         os.remove('./static/images/wordCloud.png')
 
     if request.method == 'POST':
         symbol = request.form.get('myTicker')
         data = tm.make_query(symbol)
         cleaned = tp.dataframe_cleaner(data)
-        pie_chart = s.piechart(cleaned)
+        pie_chart = s.piechart(cleaned,symbol)
         word_cloud = s.wordcloud(cleaned)
 
-        # df = tm.make_query(symbol)
-        # print(df)
+        stock_df = t.get_stock_df(symbol, "compact")
 
-        # stock_df = t.get_stock_df(symbol, "compact")
+        stock_chart = t.generate_chart(symbol, stock_df)
+        graphJSON = json.dumps(stock_chart, cls=plotly.utils.PlotlyJSONEncoder)
 
-        # fig = t.generate_chart(symbol, stock_df)
-        # graph1JSON = json.dumps(pie_chart, cls=plotly.utils.PlotlyJSONEncoder)
-
-        return render_template('twitter_template.html', pieChart='./static/images/pieChart.png', wordCloud='./static/images/wordCloud.png')
+        return render_template('twitter_template.html', graphJSON=graphJSON, pieChart='./static/images/pieChart.png', wordCloud='./static/images/wordCloud.png')
 
     return render_template('twitter_template.html')
 
 
 if __name__ == '__main__':
+    app.debug=True
     app.run()
