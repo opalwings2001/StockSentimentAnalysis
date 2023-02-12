@@ -9,11 +9,11 @@
     <title>Chart</title>
 
 </head>
-<body>
-    <h1 style="color: #014c56;font-family: Century Gothic">Generate Your Time Series Chart</h1>
+<body style="text-align: center">
+    <h1 style="color: #27285c;font-size: 48px;font-family: Agency FB">Generate Your Time Series Chart</h1>
 
     <form action= "{{ url_for('test')}}" method="post">
-        Enter stock symbol...<br>
+        <p style="font-size: 24px;color: #27285c">Enter Stock Symbol</p>
         <input type = "text" id = "myTicker" name = "myTicker" placeholder="Enter stock symbol: " style="font-family: Arial;background-color: #e4d3ff">
         <br><br>
         <input type="submit" id = "submit_btn" style="background-color: #FFFFFF;"
@@ -23,7 +23,7 @@
 
     <br>
 
-    <div id='chart' class='chart'”></div>
+    <div id='chart1' class='chart1'”></div>
 
     <br>
 
@@ -32,8 +32,8 @@
 
     <script src='https://cdn.plot.ly/plotly-latest.min.js'></script>
     <script type='text/javascript'>
-        var graphs = {{graphJSON | safe}};
-        Plotly.plot('chart',graphs,{});
+        var graph1 = {{graph1JSON | safe}};
+        Plotly.plot('chart1',graph1,{});
     </script>
 
     <br>

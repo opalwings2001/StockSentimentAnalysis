@@ -1,5 +1,8 @@
 from flask import Flask, render_template, request
 import twitter_information_parsing as t
+import sentiment_graphs as s
+import tweet_main as tm
+import tweet_processing as tp
 import plotly
 import json
 
@@ -11,12 +14,18 @@ app = Flask(__name__, template_folder='templates')
 def test():
     if request.method == 'POST':
         symbol = request.form.get('myTicker')
-        stock_df = t.get_stock_df(symbol, "compact")
+        data = tm.make_query(symbol)
+        cleaned = tp.dataframe_cleaner(data)
+        pie_chart = s.piechart(cleaned)
+        # df = tm.make_query(symbol)
+        # print(df)
 
-        fig = t.generate_chart(symbol, stock_df)
-        graphJSON = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
+        # stock_df = t.get_stock_df(symbol, "compact")
 
-        return render_template('twitter_template.html', graphJSON=graphJSON)
+        # fig = t.generate_chart(symbol, stock_df)
+        graph1JSON = json.dumps(pie_chart, cls=plotly.utils.PlotlyJSONEncoder)
+
+        return render_template('twitter_template.html', graph1JSON=graph1JSON)
     return render_template('twitter_template.html')
 
 
