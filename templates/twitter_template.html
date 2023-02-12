@@ -10,10 +10,10 @@
 
 </head>
 <body style="text-align: center">
-    <h1 style="color: #27285c;font-size: 48px;font-family: Agency FB">Generate Your Time Series Chart</h1>
+    <h1 style="color: #27285c;font-size: 48px;font-family: Agency FB">Twitter Stock Sentiment Analysis Dashboard</h1>
 
     <form action= "{{ url_for('test')}}" method="post">
-        <p style="font-size: 24px;color: #27285c">Enter Stock Symbol</p>
+        <p style="font-size: 24px;color: #27285c">Enter A Valid Stock Ticker Symbol</p>
         <input type = "text" id = "myTicker" name = "myTicker" placeholder="Enter stock symbol: " style="font-family: Arial;background-color: #e4d3ff">
         <br><br>
         <input type="submit" id = "submit_btn" style="background-color: #FFFFFF;"
@@ -22,6 +22,11 @@
     </form>
 
     <br>
+
+    <div>
+        <img id="pieChart" src="/static/images/pieChart.png" >
+        <img id="wordCloud" src="/static/images/wordCloud.png" >
+    </div>
 
     <div id='chart1' class='chart1'”></div>
 

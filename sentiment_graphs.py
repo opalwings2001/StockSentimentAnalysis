@@ -1,4 +1,7 @@
+import os.path
+
 import matplotlib.pyplot as plt
+import matplotlib
 import numpy as np
 import pandas as pd
 import wordcloud
@@ -7,6 +10,7 @@ import tweet_processing
 
 #df = pd.read_csv("sentiment.csv")
 
+matplotlib.use('agg')
 def piechart(df):
     print(df.head(10))
     count_neg = df.groupby("sentiment").size()[0]
@@ -15,13 +19,22 @@ def piechart(df):
 
     sentiment_counts = np.array([count_neg, count_neutral, count_positive])
 
-    fig = plt.figure
+    plt.clf()
+
+    pieC = plt.figure
     labels = ["Negative", "Neutral", "Positive"]
     colors = ["#f86479", "#f7f77b", "#62e1ac" ]
     plt.pie(sentiment_counts, labels = labels, colors = colors)
     plt.legend(title = "Sentiments", loc = "upper left")
-    plt.show()
-    return fig
+    plt.title("Stock Sentiment Distribution")
+
+    if os.path.exists('./static/images/pieChart.png'):
+        os.remove('./static/images/pieChart.png')
+        plt.savefig('./static/images/pieChart.png')
+    else:
+        plt.savefig('./static/images/pieChart.png')
+
+    return pieC
 
 
 def wordcloud(df):
@@ -29,12 +42,21 @@ def wordcloud(df):
     for tweet in df["text_string_lem"]:
         word_string += tweet
 
-    fig = plt.figure
+    plt.clf()
+
+    word = plt.figure
     wordCloud = WordCloud(min_word_length=3, height=1000, width=1500, background_color="white").generate(word_string)
     plt.axis("off")
+
     plt.imshow(wordCloud, interpolation="bilinear")
-    plt.show()
-    return fig
+
+    if os.path.exists('./static/images/wordCloud.png'):
+        os.remove('./static/images/wordCloud.png')
+        plt.savefig('./static/images/wordCloud.png')
+    else:
+        plt.savefig('./static/images/wordCloud.png')
+
+    return word
 
 
 
