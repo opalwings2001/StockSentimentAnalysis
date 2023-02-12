@@ -1,5 +1,8 @@
 # StockSentimentAnalysis
 
+Youtube Video: https://www.youtube.com/watch?v=_QthHACwfWE
+Devpost Submission: https://devpost.com/software/stock-sentiment-dashboard
+
 # **Twitter Stock Sentiment Analysis Dashboard**
 
 ## Inspiration
